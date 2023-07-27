@@ -7,7 +7,7 @@ license = "The GPLv3 License (GPLv3)"
 readme = "README.rst"
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">=3.7.2"
 
 [tool.poetry.group.dev.dependencies]
 setuptools = "^67.6.1"
@@ -28,4 +28,13 @@ clean = "scripts.autoclean:autoclean"
 
 [tool.pylint]
 max-line-length = 120
-disable = []
+disable = [
+    "W1401",
+    "C0114",
+    "C0116",
+    "E0402",
+    "W0105",
+    "R1721",
+    "C0304",
+    "C0103"
+]
