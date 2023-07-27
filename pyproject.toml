@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "xiver-gpt"
+version = "0.0.0a"
+description = "The module Xiver team use to work with gpt."
+authors = ["GigantPro <gigantpro2000@gmail.com>"]
+license = "The GPLv3 License (GPLv3)"
+readme = "README.rst"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "^67.6.1"
+pylint = "^2.17.1"
+pytest = "^7.2.2"
+twine = "^4.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+build = "scripts.build:build"
+public = "scripts.public:public"
+linting = "scripts.pylint:start_linting"
+testing = "scripts.testing:start_testing"
+clean = "scripts.autoclean:autoclean"
+
+[tool.pylint]
+max-line-length = 120
+disable = []
