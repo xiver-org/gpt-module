@@ -3,7 +3,7 @@ import inspect
 
 import g4f
 
-from .exceptions import NoProvider
+from exceptions import NoProvider
 
 __all__ = ("XiverGPT",)
 

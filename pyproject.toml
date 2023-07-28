@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xiver_gpt"
-version = "0.0.1b"
+version = "0.0.1b1"
 description = "The module Xiver team use to work with gpt."
 
 authors = [
