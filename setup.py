@@ -10,13 +10,13 @@ from setuptools import setup
 """
 
 with open("pyproject.toml", encoding="utf-8") as file:
-    VERSION = file.read().split("=")[2].split('"')[1]
+    file_content = file.read()
 
-    INSTALL_REQUIRES = [i.strip() for i in file.readlines()]
-    INSTALL_REQUIRES = [line for line in INSTALL_REQUIRES[
-            INSTALL_REQUIRES.index('[tool.poetry.dependencies]') + 1 :
-            INSTALL_REQUIRES.index('[tool.poetry.group.dev.dependencies]')]
-        ]
+    VERSION = file_content.split("=")[2].split('"')[1]
+
+with open("requirements.txt", encoding="utf-8") as file:
+    INSTALL_REQUIRES = file.read()
+
 
 with open("xiver_gpt/README.md", encoding="utf-8") as f:
     long_description = f.read()
@@ -29,8 +29,8 @@ setup(
     description=("The module Xiver team use to work with gpt."),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/xiver/xiver_gpt",
-    download_url="https://github.com/xiver/xiver_gpt/archive/master.zip",
+    url="https://github.com/xiver/xiver-gpt",
+    download_url="https://github.com/xiver/xiver-gpt/archive/master.zip",
     license="The GPLv3 License (GPLv3)",
     packages=["xiver_gpt"],
     install_requires=INSTALL_REQUIRES,

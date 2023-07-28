@@ -58,7 +58,7 @@ Dependencies:
 
 .. code-block:: shell
 
-    $ git clone https://github.com/xiver/xiver_gpt.git; cd xiver_gpt-master
+    $ git clone https://github.com/xiver/xiver-gpt.git; cd xiver_gpt-master
     $ poetry install
     $ poetry run build; cd dist
     $ pip install $(ls -Art | tail -n 1)
