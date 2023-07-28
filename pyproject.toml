@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "xiver-gpt"
-version = "0.0.0a"
+name = "xiver_gpt"
+version = "0.0.1b"
 description = "The module Xiver team use to work with gpt."
 
 authors = [
@@ -12,10 +12,11 @@ maintainers = [
 
 license = "The GPLv3 License (GPLv3)"
 readme = "README.rst"
-packages = [{include = "xiver-gpt"}]
+packages = [{include = "xiver_gpt"}]
 
 [tool.poetry.dependencies]
 python = ">=3.7.2"
+g4f = "^0.0.1.3"
 
 [tool.poetry.group.dev.dependencies]
 setuptools = "^67.6.1"
@@ -44,5 +45,6 @@ disable = [
     "W0105",
     "R1721",
     "C0304",
-    "C0103"
+    "C0103",
+    "E0704"
 ]

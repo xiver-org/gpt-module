@@ -18,21 +18,21 @@ with open("pyproject.toml", encoding="utf-8") as file:
             INSTALL_REQUIRES.index('[tool.poetry.group.dev.dependencies]')]
         ]
 
-with open("xiver-gpt/README.md", encoding="utf-8") as f:
+with open("xiver_gpt/README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="xiver-gpt",
+    name="xiver_gpt",
     version=VERSION,
     author="GigantPro",
     author_email="gigantpro2000@gmail.ru",
     description=("The module Xiver team use to work with gpt."),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/xiver/xiver-gpt",
-    download_url="https://github.com/xiver/xiver-gpt/archive/master.zip",
+    url="https://github.com/xiver/xiver_gpt",
+    download_url="https://github.com/xiver/xiver_gpt/archive/master.zip",
     license="The GPLv3 License (GPLv3)",
-    packages=["xiver-gpt"],
+    packages=["xiver_gpt"],
     install_requires=INSTALL_REQUIRES,
     classifiers=[
         "Operating System :: OS Independent",
