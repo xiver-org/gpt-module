@@ -25,4 +25,4 @@ jobs:
       run: python -m poetry install --with dev
 
     - name: pylint
-      run: pylint -j$(nproc) $(git ls-files '*.py')
+      run: poetry run linting
