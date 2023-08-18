@@ -126,5 +126,5 @@ class XiverGPT:
                 ],
                 stream=stream,
             )
-        
+
         return response
