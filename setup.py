@@ -32,7 +32,10 @@ setup(
     url="https://github.com/xiver/xiver-gpt",
     download_url="https://github.com/xiver/xiver-gpt/archive/master.zip",
     license="The GPLv3 License (GPLv3)",
-    packages=["xiver_gpt"],
+    packages=[
+        'xiver_gpt',
+        'xiver_gpt.exceptions'
+    ],
     install_requires=INSTALL_REQUIRES,
     classifiers=[
         "Operating System :: OS Independent",
