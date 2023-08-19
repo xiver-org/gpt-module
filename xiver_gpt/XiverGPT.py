@@ -82,8 +82,6 @@ class XiverGPT:
             except:  # pylint: disable=bare-except
                 pass
         
-        print(f'{work_providers=}')
-
         for prov in work_providers:
             try:
                 response = self.__create_response(self.g4f_model, prov, "Hello world", self.stream)
