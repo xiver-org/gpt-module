@@ -9,16 +9,17 @@ __all__ = ("XiverGPT",)
 
 
 PROVIDERS_BLACKLIST = (
-    g4f.Provider.Providers.DfeHub,
-    g4f.Provider.Providers.Ails,
-    g4f.Provider.Providers.Bard,
+    g4f.Provider.Aichat,
+    g4f.Provider.Acytoo,
+    g4f.Provider.Ails,
+    g4f.Provider.ChatgptAi,
 )
 
 
 class XiverGPT:
     """The main class of xiver_gpt lib
     """
-    def __init__(self, *, g4f_model: g4f.Model.model = g4f.Model.gpt_4, \
+    def __init__(self, *, g4f_model: g4f.models.Model = g4f.models.gpt_4, \
                  g4f_provider: Any | None = None, \
                  stream: bool = False) -> None:
 
@@ -32,18 +33,17 @@ class XiverGPT:
 
         self.stream = stream
 
-        self.providers  = [cls_obj for _, cls_obj in inspect.getmembers(g4f.Provider) if inspect.ismodule(cls_obj)]
-        self.models     = [cls_obj for _, cls_obj in inspect.getmembers(g4f.Model) if inspect.isclass(cls_obj)]
+        self.providers  = [cls_obj for _, cls_obj in inspect.getmembers(g4f.Provider) if inspect.isclass(cls_obj)]
+        self.models     = [cls_obj for _, cls_obj in inspect.getmembers(g4f.models) if inspect.isclass(cls_obj)]
 
         try:
             self.models.remove(type)
             self.providers.remove(type)
+
+            self.providers.remove(g4f.Provider.base_provider)
         except ValueError:
             pass
 
-        self.providers.remove(g4f.Provider.Provider)
-        self.providers.remove(g4f.Provider.Providers)
-        self.models.remove(g4f.Model.model)
 
         self.auto_update_provider()
 
@@ -98,9 +98,39 @@ class XiverGPT:
             raise NoProvider(self.g4f_model)
 
     def create_response(self, message: str, stream: bool = False) -> str | Generator:
-        response = g4f.ChatCompletion.create(
-            model=self.g4f_model,
-            provider=self.g4f_worked_providers[self.__provider_num],
+        response = None
+        
+        try:
+            response = self.__create_response(
+                self.g4f_model,
+                self.g4f_worked_providers[self.__provider_num],
+                message,
+                stream,
+            )
+        except: # pylint: disable=bare-except
+            self.__provider_num += 1
+
+        while not response or '"error":' in response:
+            self.__provider_num += 1
+            if self.__provider_num > len(self.g4f_worked_providers):
+                self.__provider_num = 0
+
+            try:
+                response = self.__create_response(
+                    self.g4f_model,
+                    self.g4f_worked_providers[self.__provider_num],
+                    message,
+                    stream,
+                )
+            except: # pylint: disable=bare-except
+                self.__provider_num += 1
+
+        return response
+
+    def __create_response(self, model, provider, message, stream) -> Any:
+        return g4f.ChatCompletion.create(
+            model=model,
+            provider=provider,
             messages=[
                 {
                     "role": "user",
@@ -109,22 +139,3 @@ class XiverGPT:
             ],
             stream=stream,
         )
-
-        while not response:
-            self.__provider_num += 1
-            if self.__provider_num > len(self.g4f_worked_providers):
-                self.__provider_num = 0
-
-            response = g4f.ChatCompletion.create(
-                model=self.g4f_model,
-                provider=self.g4f_worked_providers[self.__provider_num],
-                messages=[
-                    {
-                        "role": "user",
-                        "content": message,
-                    }
-                ],
-                stream=stream,
-            )
-
-        return response

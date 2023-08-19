@@ -9,3 +9,4 @@ docs/_build
 .vscode
 venv
 xiver_gpt.egg-info
+build
