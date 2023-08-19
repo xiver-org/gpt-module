@@ -44,7 +44,6 @@ class XiverGPT:
         except ValueError:
             pass
 
-
         self.auto_update_provider()
 
     def auto_update_provider(self) -> None:  # pylint: disable=too-many-branches
@@ -71,7 +70,7 @@ class XiverGPT:
                 continue
 
             try:
-                response = self.__create_response(self.g4f_model, prov, "Hello world", self.stream)
+                response = self.__create_response(self.g4f_model, provider, "Hello world", self.stream)
 
                 res = response if not self.stream else ' '.join([i for i in response])
 
@@ -82,6 +81,8 @@ class XiverGPT:
                 work_providers.append(provider)
             except:  # pylint: disable=bare-except
                 pass
+        
+        print(f'{work_providers=}')
 
         for prov in work_providers:
             try:
