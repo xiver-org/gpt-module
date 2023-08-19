@@ -71,8 +71,7 @@ class XiverGPT:
                 continue
 
             try:
-                response = g4f.ChatCompletion.create(model=self.g4f_model, provider=provider, messages=[
-                                            {"role": "user", "content": "Hello world"}], stream=self.stream)
+                response = self.__create_response(self.g4f_model, prov, "Hello world", self.stream)
 
                 res = response if not self.stream else ' '.join([i for i in response])
 
@@ -85,14 +84,17 @@ class XiverGPT:
                 pass
 
         for prov in work_providers:
-            response = g4f.ChatCompletion.create(model=self.g4f_model, provider=prov, messages=[
-                                    {"role": "user", "content": "Hello world"}], stream=self.stream)
-            res = ''
-            for i in response:
-                res.join(i)
+            try:
+                response = self.__create_response(self.g4f_model, prov, "Hello world", self.stream)
 
-            if 'error' not in res:
-                self.g4f_worked_providers.append(prov)
+                res = ''
+                for i in response:
+                    res.join(i)
+
+                if 'error' not in res:
+                    self.g4f_worked_providers.append(prov)
+            except:  # pylint: disable=bare-except
+                pass
 
         if not self.g4f_worked_providers:
             raise NoProvider(self.g4f_model)
